@@ -424,6 +424,9 @@ export class NavidromePlaybackDestination {
       pointer = { ...pointer, title: current };
       navidromePlaylistPointerStore.setPointer(snapshot.entityId, targetKey, pointer);
     }
+    if (this.client) {
+      this.client._indexedSongsPromise = null;
+    }
     const songs = [];
     for (let index = 0; index < snapshot.tracks.length; index += SONG_LOOKUP_BATCH_SIZE) {
       const batch = snapshot.tracks.slice(index, index + SONG_LOOKUP_BATCH_SIZE);
